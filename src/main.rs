@@ -1,6 +1,26 @@
-fn main() {
-    use bracket_geometry::prelude::*;
+use std::usize;
 
-    let my_point = Point::new(5,6);
-    println!("{:?}", my_point);
+use minifb::{ScaleMode, Window, WindowOptions};
+
+const WIDTH: usize = 1280 / 2;
+const HEIGHT: usize = 640 / 2;
+
+fn main() {
+    let mut window = Window::new(
+        "TestWIndow",
+        WIDTH,
+        HEIGHT,
+        WindowOptions {
+            resize: true,
+            scale_mode: ScaleMode::UpperLeft,
+            ..WindowOptions::default()
+        },
+    )
+    .expect("Unable to create window");
+    window.limit_update_rate(Some(std::time::Duration::from_micros(16600)));
+
+    // let mut buffer : Vec<u32> = vec![0; 1280 * 640];
+   loop {
+        window.update();
+    }
 }
