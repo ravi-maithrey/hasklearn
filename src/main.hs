@@ -4,7 +4,7 @@ dot :: [Float] -> [Float] -> Float
 dot (x : xs) (y : ys) = (x * y) : dot xs ys
 
 hypothesis :: [Float] -> [Float] -> Float -> [Float]
-hypothesis xs w b = pure (*) <*> w <*> xs + b
+hypothesis xs' w b = pure (*) <*> w <*> xs' + b
 
 cost :: [Float] -> [Float] -> Float
 cost ys hs = sum $ (** 2) <$> (pure (-) <*> ys <*> hs)
