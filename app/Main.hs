@@ -1,3 +1,5 @@
+import GHC.Float (int2Float)
+
 -- how do i genericize a container? instead of list, it can be any container
 
 dot :: [Float] -> [Float] -> Float
@@ -15,14 +17,14 @@ cost ys hs = sum $ (** 2) <$> (pure (-) <*> ys <*> hs)
 updateWeights :: [Float] -> [Float] -> [Float] -> [Float] -> [Float]
 updateWeights xs hs ys w = fmap (subtract (lr * dw)) w
   where
-    dw = (2 * dot xs (pure (-) <*> ys <*> hs)) / fromIntegral (length ys)
+    dw = (2 * dot xs (pure (-) <*> ys <*> hs)) / int2Float (length ys)
     lr = 0.01
 
 -- dW = - ( 2 * ( self.X.T ).dot( self.Y - Y_pred )  ) / self.m
 updateBias :: [Float] -> [Float] -> Float -> Float
 updateBias hs ys b = b - (lr * db)
   where
-    db = 2.0 * sum (pure (-) <*> ys <*> hs) / fromIntegral length ys -- how to get float from division. convert fractional to float?
+    db = 2.0 * sum (pure (-) <*> ys <*> hs) / int2Float (length ys) -- how to get float from division. convert fractional to float?
     lr = 0.01
 
 -- fit takes xs, ys, initializes weights and biases, updates them
