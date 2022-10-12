@@ -1,4 +1,4 @@
-# Revision history for n-body-problem
+# Revision history for hasklearn
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
