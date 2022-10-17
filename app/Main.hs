@@ -37,3 +37,4 @@ fit xs ys = (updateWeights xs hs ys w, updateBias hs ys b)
     hs = predict xs w b
 
 -- train takes a fit and iterates it. returns us the final weights and biases
+train n xs ys = repeat n (fit xs ys)
