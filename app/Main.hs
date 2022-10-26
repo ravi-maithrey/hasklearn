@@ -15,7 +15,7 @@ cost ys hs = sum $ (** 2) <$> (pure (-) <*> ys <*> hs)
 -- squaredError (y:ys) (e:es) = (y-e) ** 2 : squaredError ys es
 
 updateWeights :: [Float] -> [Float] -> [Float] -> [Float] -> [Float]
-updateWeights xs hs ys w = fmap (subtract (lr * dw)) w
+updateWeights xs ys hs w = fmap (subtract (lr * dw)) w
   where
     dw = (2 * dot xs (pure (-) <*> ys <*> hs)) / int2Float (length ys)
     lr = 0.01
@@ -37,4 +37,6 @@ fit xs ys = (updateWeights xs hs ys w, updateBias hs ys b)
     hs = predict xs w b
 
 -- train takes a fit and iterates it. returns us the final weights and biases
-train n xs ys = repeat n (fit xs ys)
+
+train :: Int -> [Float] -> [Float] -> [([Float], Float)]
+train n xs ys = replicate n (fit xs ys)
