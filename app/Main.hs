@@ -1,42 +1,29 @@
+{-# LANGUAGE FlexibleContexts #-}
+
+import Control.Monad.State.Lazy
 import GHC.Float (int2Float)
 
 -- how do i genericize a container? instead of list, it can be any container
 
 dot :: [Float] -> [Float] -> Float
-dot xs ys = sum $ pure (*) <*> xs <*> ys
+dot xs ys = sum $ zipWith (*) xs ys
 
 predict :: [Float] -> [Float] -> Float -> [Float]
-predict xs w b = fmap (+ b) (pure (*) <*> w <*> xs)
+predict xs w b = fmap (+ b) (zipWith (*) xs w)
 
 cost :: [Float] -> [Float] -> Float
-cost ys hs = sum $ (** 2) <$> (pure (-) <*> ys <*> hs)
+cost ys hs = sum $ (** 2) <$> zipWith (-) ys hs
 
--- squaredError :: [Float] -> [Float] -> [Float]
--- squaredError (y:ys) (e:es) = (y-e) ** 2 : squaredError ys es
+predict' model xts = model xts
 
-updateWeights :: [Float] -> [Float] -> [Float] -> [Float] -> [Float]
-updateWeights xs ys hs w = fmap (subtract (lr * dw)) w
-  where
-    dw = (2 * dot xs (pure (-) <*> ys <*> hs)) / int2Float (length ys)
-    lr = 0.01
+linModel = linearRegression xtrs ytrs
 
--- dW = - ( 2 * ( self.X.T ).dot( self.Y - Y_pred )  ) / self.m
-updateBias :: [Float] -> [Float] -> Float -> Float
-updateBias hs ys b = b - (lr * db)
-  where
-    db = 2.0 * sum (pure (-) <*> ys <*> hs) / int2Float (length ys) -- how to get float from division. convert fractional to float?
-    lr = 0.01
+-- fittedModel = fit linModel
 
--- fit takes xs, ys, initializes weights and biases, updates them
--- predict takes result of fit as weights and biases and xs and gives ys
-fit :: [Float] -> [Float] -> ([Float], Float)
-fit xs ys = (updateWeights xs hs ys w, updateBias hs ys b)
-  where
-    w = replicate (length xs) (0 :: Float)
-    b = 0 :: Float
-    hs = predict xs w b
+linearRegression :: [Float] -> [Float] -> ([Float], Float)
+linearRegression xtrs ytrs = (execState (updateWeights xtrs ytrs) (replicate (length xtrs) (0 :: Float)), execState (updateBias xtrs ytrs) (0::Float))
 
--- train takes a fit and iterates it. returns us the final weights and biases
-
-train :: Int -> [Float] -> [Float] -> [([Float], Float)]
-train n xs ys = replicate n (fit xs ys)
+updateWeights xtrs ytrs = do
+  weights <- get
+  let dw = 
+-- linearRegression xtrs ytrs = 
