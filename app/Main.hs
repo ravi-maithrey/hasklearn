@@ -54,7 +54,7 @@ predict xsTe model = fmap (+ b) (zipWith (*) xs w)
 fit :: Model Float -> [Float] -> [Float] -> Model Float
 fit model xTrs yTrs = model {weights = updateWeights (weights model) xTrs yTrs, bias = updateBias (bias model) xTrs yTrs}
   where
-    updateWeights weight xTr yTr = execState (modifyWeight xTr yTr model) weight
+    updateWeights (weight : weights) xTr yTr = execState (modifyWeight xTr yTr model) weight : updateWeights weights xTr yTr
     updateBias bias xTr yTr = execState (modifyBias xTr yTr model) bias
 
 modifyWeight xTr yTr model = do
