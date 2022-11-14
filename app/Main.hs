@@ -1,4 +1,7 @@
 {-# LANGUAGE FlexibleContexts #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+
+{-# HLINT ignore "Use camelCase" #-}
 
 import Control.Monad.State.Lazy
 import GHC.Float (int2Float)
@@ -13,8 +16,10 @@ data Model a = Model {weights :: [a], bias :: a} deriving (Eq, Show)
 instance Functor Model where
   fmap f model = model {weights = fmap f (weights model), bias = f (bias model)}
 
-initialize :: [Float] -> [Float] -> Model Float
-initialize xs ys = Model {weights = replicate (length xs) 0, bias = 0}
+instance Monad Model
+
+-- initialize :: [Float] -> [Float] -> Model Float
+-- initialize xs ys = Model {weights = replicate (length xs) 0, bias = 0}
 
 xs :: [Float]
 xs = [1, 2, 3, 4]
@@ -23,7 +28,7 @@ ys :: [Float]
 ys = [1, 2, 3, 4]
 
 linearReg :: [Float] -> [Float] -> Model Float
-linearReg = initialize
+linearReg xs ys = Model {weights = replicate (length xs) 0, bias = 0}
 
 predict :: [Float] -> Model Float -> [Float]
 predict xsTe model = fmap (+ b) (zipWith (*) xs w)
@@ -52,3 +57,15 @@ modifyBias xTr yTr model = do
 
 cost :: Model Float -> [Float] -> [Float] -> Float
 cost model xs ys = sum (fmap (^ 2) (zipWith (-) ys (predict xs model))) / fromIntegral (length xs)
+
+-- let us assume we have converged if the gradients change less than 0.01%
+convergence_threshold :: Float
+convergence_threshold = 0.0001
+
+converge model xTrs yTrs change =
+  if change < convergence_threshold
+    then do
+      fit model xTrs yTrs
+      let a = 1
+      converge model xTrs yTrs a
+    else model
