@@ -80,5 +80,6 @@ converge model xTrs yTrs change =
     then do
       let model' = fit model xTrs yTrs
       let change' = ((bias model - bias model') / bias model) * 100
-      converge model xTrs yTrs change'
-    else model
+      converge model' xTrs yTrs change'
+    else -- model'
+      model
