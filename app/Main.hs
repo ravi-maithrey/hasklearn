@@ -16,7 +16,19 @@ data Model a = Model {weights :: [a], bias :: a} deriving (Eq, Show)
 instance Functor Model where
   fmap f model = model {weights = fmap f (weights model), bias = f (bias model)}
 
-instance Monad Model
+instance Applicative Model where
+  pure a = Model {weights = [a], bias = a}
+  model1 <*> model2 = Model {weights = zipWith ($) (weights model1) (weights model2), bias = bias model1 $ bias model2}
+
+instance Monad Model where
+  model >>= f = model {weights = weight', bias = bias'}
+    where
+      weight' = concatMap weights (fmap f (weights model))
+      bias' = bias $ f (bias model)
+
+-- b = bias model
+-- f b = Model b
+-- bias (f b) = b'
 
 -- initialize :: [Float] -> [Float] -> Model Float
 -- initialize xs ys = Model {weights = replicate (length xs) 0, bias = 0}
@@ -62,10 +74,11 @@ cost model xs ys = sum (fmap (^ 2) (zipWith (-) ys (predict xs model))) / fromIn
 convergence_threshold :: Float
 convergence_threshold = 0.0001
 
+converge :: Model Float -> [Float] -> [Float] -> Float -> Model Float
 converge model xTrs yTrs change =
   if change < convergence_threshold
     then do
-      fit model xTrs yTrs
-      let a = 1
-      converge model xTrs yTrs a
+      let model' = fit model xTrs yTrs
+      let change' = ((bias model - bias model') / bias model) * 100
+      converge model xTrs yTrs change'
     else model
