@@ -51,14 +51,17 @@ predict xsTe model = fmap (+ b) (zipWith (*) xs w)
 fit :: Model Float -> [Float] -> [Float] -> Model Float
 fit model xTrs yTrs = model {weights = updateWeights (weights model) xTrs yTrs, bias = updateBias (bias model) xTrs yTrs}
   where
-    updateWeights (weight : weights) xTr yTr = execState (modifyWeight xTr yTr model) weight : updateWeights weights xTr yTr
+    updateWeights weights xTr yTr = execState (modifyWeight xTr yTr model) weights
     updateBias bias xTr yTr = execState (modifyBias xTr yTr model) bias
 
+modifyWeight :: MonadState [Float] m => [Float] -> [Float] -> Model Float -> m ()
 modifyWeight xTr yTr model = do
   weight <- get
   let dw = -(2 * dot xTr (zipWith (-) yTr (predict xTr model))) / fromIntegral (length xTr)
-  put (weight - (0.01 * dw))
+  let dws = fmap (0.01 *) (replicate (length weight) dw)
+  put (zipWith (-) weight dws)
 
+modifyBias :: MonadState Float m => [Float] -> [Float] -> Model Float -> m ()
 modifyBias xTr yTr model = do
   bias <- get
   let db = -2 * sum (zipWith (-) yTr (predict xTr model)) / fromIntegral (length xTr)
@@ -74,12 +77,16 @@ cost model xs ys = sum (fmap (^ 2) (zipWith (-) ys (predict xs model))) / fromIn
 convergence_threshold :: Float
 convergence_threshold = 0.0001
 
-converge :: Model Float -> [Float] -> [Float] -> Float -> Model Float
-converge model xTrs yTrs change =
-  if change < convergence_threshold
+conver' :: Model Float -> [Float] -> [Float] -> Float -> Model Float
+conver' model xTrs yTrs change =
+  if change > convergence_threshold
     then do
       let model' = fit model xTrs yTrs
-      let change' = ((bias model - bias model') / bias model) * 100
-      converge model' xTrs yTrs change'
+      let change' = abs (bias model - bias model') / bias model'
+      conver' model' xTrs yTrs change'
+      model'
     else -- model'
       model
+
+converge :: Model Float -> [Float] -> [Float] -> Model Float
+converge model xTrs yTrs = conver' model xTrs yTrs 1 -- by giing one we mean we want it to change as we are telling that change% = 100 the first time
