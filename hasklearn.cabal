@@ -22,7 +22,7 @@ maintainer:         maitrey.ind@gmail.com
 extra-source-files: CHANGELOG.md
 
 executable hasklearn
-    main-is:          model.hs
+    main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
     -- other-modules:
