@@ -1,6 +1,8 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
+module Model where
+
 {-# HLINT ignore "Use camelCase" #-}
 
 import Control.Monad.State.Lazy
@@ -42,8 +44,8 @@ ys = [1, 2, 3, 4]
 linearReg :: [Float] -> [Float] -> Model Float
 linearReg xs ys = Model {weights = replicate (length xs) 0, bias = 0}
 
-predict :: [Float] -> Model Float -> [Float]
-predict xsTe model = fmap (+ b) (zipWith (*) xs w)
+predict :: Model Float -> Float -> [Float]
+predict model xsTe = fmap (+ b) (zipWith (*) xs w)
   where
     w = weights model
     b = bias model
@@ -89,4 +91,4 @@ conver' model xTrs yTrs change =
       model
 
 converge :: Model Float -> [Float] -> [Float] -> Model Float
-converge model xTrs yTrs = conver' model xTrs yTrs 1 -- by giing one we mean we want it to change as we are telling that change% = 100 the first time
+converge model xTrs yTrs = conver' model xTrs yTrs 1 -- by giving one we mean we want it to change as we are telling that change% = 100 the first time
