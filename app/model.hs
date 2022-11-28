@@ -44,8 +44,8 @@ ys = [1, 2, 3, 4]
 linearReg :: [Float] -> [Float] -> Model Float
 linearReg xs ys = Model {weights = replicate (length xs) 0, bias = 0}
 
-predict :: Model Float -> Float -> [Float]
-predict model xsTe = fmap (+ b) (zipWith (*) xs w)
+predict :: [Float] -> Model Float -> [Float]
+predict xsTe model = fmap (+ b) (zipWith (*) xsTe w)
   where
     w = weights model
     b = bias model
@@ -86,7 +86,6 @@ conver' model xTrs yTrs change =
       let model' = fit model xTrs yTrs
       let change' = abs (bias model - bias model') / bias model'
       conver' model' xTrs yTrs change'
-      model'
     else -- model'
       model
 
