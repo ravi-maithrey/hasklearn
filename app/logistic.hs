@@ -12,4 +12,4 @@ preditLogit model xsTe = sigmoid <$> fmap (+ b) (zipWith (*) xsTe w)
     w = weights model
     b = bias model
 
-negLogLikelihood ys ysTrue
+negLogLikelihood ys ysTrue = (fmap (-)) ((zipWith (*) ys (fmap log ysTrue)))
