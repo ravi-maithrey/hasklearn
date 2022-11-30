@@ -10,10 +10,13 @@ sigmoid :: Float -> Float
 sigmoid x = 1 / (1 + exp (-x))
 
 predictLogit :: Model Float -> [Float] -> [Float]
-predictLogit model xsTe = sigmoid <$> fmap (+ b) (zipWith (*) xsTe w)
+predictLogit model xsTe = fmap probCheck (sigmoid <$> fmap (+ b) (zipWith (*) xsTe w))
   where
     w = weights model
     b = bias model
+
+probCheck :: Float -> Float
+probCheck x = if x > 0.5 then 1 else 0
 
 logisticLoss :: Float -> Float -> Float
 logisticLoss ypred yTrue = -((yTrue * log ypred) + ((1 - yTrue) * log (1 - ypred)))
@@ -49,3 +52,9 @@ iterations = 5000
 
 convergeLogistic :: Model Float -> [Float] -> [Float] -> Integer -> Model Float
 convergeLogistic model xTrs yTrs iterations = if iterations < 0 then model else convergeLogistic (fitLogistic model xTrs yTrs) xTrs yTrs (iterations - 1)
+
+xs :: [Float]
+xs = [1, 2, 3, 4, 5]
+
+ys :: [Float]
+ys = [0, 1, 0, 0, 1]
