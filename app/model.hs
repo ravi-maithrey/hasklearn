@@ -79,15 +79,21 @@ cost model xs ys = sum (fmap (^ 2) (zipWith (-) ys (predict xs model))) / fromIn
 convergence_threshold :: Float
 convergence_threshold = 0.0001
 
-conver' :: Model Float -> [Float] -> [Float] -> Float -> Model Float
-conver' model xTrs yTrs change =
-  if change > convergence_threshold
-    then do
-      let model' = fit model xTrs yTrs
-      let change' = abs (bias model - bias model') / bias model'
-      conver' model' xTrs yTrs change'
-    else -- model'
-      model
+iterations :: Integer
+iterations = 10000
 
-converge :: Model Float -> [Float] -> [Float] -> Model Float
-converge model xTrs yTrs = conver' model xTrs yTrs 1 -- by giving one we mean we want it to change as we are telling that change% = 100 the first time
+-- conver' :: Model Float -> [Float] -> [Float] -> Float -> Model Float
+-- conver' model xTrs yTrs change =
+--   if change > convergence_threshold
+--     then do
+--       let model' = fit model xTrs yTrs
+--       let change' = abs (bias model - bias model') / bias model'
+--       conver' model' xTrs yTrs change'
+--     else -- model'
+--       model
+
+-- converge :: Model Float -> [Float] -> [Float] -> Model Float
+-- converge model xTrs yTrs = conver' model xTrs yTrs 1 -- by giving one we mean we want it to change as we are telling that change% = 100 the first time
+
+converge :: Model Float -> [Float] -> [Float] -> Integer -> Model Float
+converge model xTrs yTrs iterations = if iterations < 0 then model else converge (fit model xTrs yTrs) xTrs yTrs (iterations - 1)
