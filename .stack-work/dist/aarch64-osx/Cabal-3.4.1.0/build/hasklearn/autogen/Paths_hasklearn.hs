@@ -30,12 +30,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/bin"
-libdir     = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/lib/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0-LrBGaPveQNj6lBc13uy3VD-hasklearn"
-dynlibdir  = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/lib/aarch64-osx-ghc-9.0.2"
-datadir    = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/share/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0"
-libexecdir = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/libexec/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0"
-sysconfdir = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/644c83ddabd724f43e13842e4a36551907685244d071f86aac204db3048a186a/9.0.2/etc"
+bindir     = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/bin"
+libdir     = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/lib/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0-LrBGaPveQNj6lBc13uy3VD-hasklearn"
+dynlibdir  = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/lib/aarch64-osx-ghc-9.0.2"
+datadir    = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/share/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0"
+libexecdir = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/libexec/aarch64-osx-ghc-9.0.2/hasklearn-0.1.0.0"
+sysconfdir = "/Users/ravimaith/Documents/hasklearn/.stack-work/install/aarch64-osx/b260e983bf8ee973f74724b285924690c22bc4477cb6bd5fcaced9ce08c0208a/9.0.2/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "hasklearn_bindir") (\_ -> return bindir)

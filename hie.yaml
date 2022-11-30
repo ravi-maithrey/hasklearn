@@ -1,0 +1,8 @@
+cradle:
+  stack:
+    - path: "app/model.hs"
+      component: "hasklearn:exe:hasklearn"
+    - path: "app/logistic.hs"
+      component: "hasklearn:exe:hasklearn"
+    - path: "app/knn.hs"
+      component: "hasklearn:exe:hasklearn"

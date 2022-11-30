@@ -39,7 +39,11 @@ packages:
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
-# extra-deps: []
+extra-deps: [
+  attoparsec-0.13.0.0@sha256:5062d63a96cf2fa3144502a2c56062ad5b088e464fbd25d88fb4a01ac4ed60dd,
+  filepattern-0.1,
+  yaml-0.5.0@sha256:02250be08434ce5d86b161c0527b548073567483cbe94c6ec65e7d725d67245b
+]
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
@@ -51,7 +55,7 @@ packages:
 # system-ghc: true
 #
 # Require a specific version of stack, using version ranges
-# require-stack-version: -any # Default
+# require-stack-verstack install gen-hiesion: -any # Default
 # require-stack-version: ">=2.7"
 #
 # Override the architecture used by stack, especially useful on Windows

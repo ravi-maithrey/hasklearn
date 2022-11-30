@@ -3,5 +3,26 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: attoparsec-0.13.0.0@sha256:5062d63a96cf2fa3144502a2c56062ad5b088e464fbd25d88fb4a01ac4ed60dd,4256
+    pantry-tree:
+      size: 3869
+      sha256: 3c83c72fa3c0f168ea892e491a69b412c97aff22f76854a53bff01675a8a37a7
+  original:
+    hackage: attoparsec-0.13.0.0@sha256:5062d63a96cf2fa3144502a2c56062ad5b088e464fbd25d88fb4a01ac4ed60dd
+- completed:
+    hackage: filepattern-0.1@sha256:715a57c5ccf4347ed3e6625fc6a07cbf6b1eed9505421a71f3be1d8fdf635eed,2498
+    pantry-tree:
+      size: 998
+      sha256: 5fcee6e3f2338a4bd0b7de80d33c848a885905e97d606667cef3af1b1144a909
+  original:
+    hackage: filepattern-0.1
+- completed:
+    hackage: yaml-0.5.0@sha256:02250be08434ce5d86b161c0527b548073567483cbe94c6ec65e7d725d67245b,2763
+    pantry-tree:
+      size: 1118
+      sha256: 65fda7ec4967856591be7fe6d9c3b8de2567c77cae315c9825749bfccf9761c4
+  original:
+    hackage: yaml-0.5.0@sha256:02250be08434ce5d86b161c0527b548073567483cbe94c6ec65e7d725d67245b
 snapshots: []
