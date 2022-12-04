@@ -1,9 +1,11 @@
 /Users/ravimaith/Documents/hasklearn/CHANGELOG.md:
   hash: 76876b790dadfbef280ecfbffc6f82051558a76cb07cd59140d8015c53d13b83
+/Users/ravimaith/Documents/hasklearn/app/Naive.hs:
+  hash: 8dafe61c094435cfbc2f44a558949bbaeeffebcf2bd1e8ffec4a16ae29a239af
 /Users/ravimaith/Documents/hasklearn/hasklearn.cabal:
-  hash: f90f9b1d9002631dada77284cff9fee39b9595b605da39fa4d7213bc1781662c
+  hash: 40bec48f20b3c2e666b7c8a288204d35dd777277985b6a921de005393d977b14
 /Users/ravimaith/Documents/hasklearn/app/KNN.hs:
-  hash: 4162b1f9fb4e7e2d43a7a35e3e48b339351d6b3ceb338edfb98335fa6df9d8c9
+  hash: 8e4d216d33d40240ab7fa796c5857269ce244b92154e5536bf9a5ed6cd793b88
 /Users/ravimaith/Documents/hasklearn/app/Logistic.hs:
   hash: a12e422df0a7917912479f7e230669655550f60186919b40210306eb41503586
 /Users/ravimaith/Documents/hasklearn/app/Model.hs:

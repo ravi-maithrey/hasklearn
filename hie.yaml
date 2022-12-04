@@ -6,3 +6,5 @@ cradle:
       component: "hasklearn:exe:hasklearn"
     - path: "app/knn.hs"
       component: "hasklearn:exe:hasklearn"
+    - path: "app/naive.hs"
+      component: "hasklearn:exe:hasklearn"
