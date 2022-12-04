@@ -1,7 +1,7 @@
 module KNN where
 
-import qualified Data.Bifunctor
 import Data.List
+import Data.Ord
 import Logistic
 import Model
 
@@ -29,7 +29,11 @@ ys = [0, 1, 2, 1, 0]
 calculateDistance :: (Ord a, Floating a) => [[a]] -> [a] -> [a]
 calculateDistance xs new = reverse (sort (fmap (euclideanDistance new) xs))
 
+listFromSecTuple :: [(a, b)] -> [b]
+listFromSecTuple = map snd
+
 knn :: Applicative f => f a1 -> f a2 -> f (a1, a2)
 knn xs ys = (,) <$> xs <*> ys
 
-knnFit combined new = fmap (Data.Bifunctor.first (euclideanDistance new))
+knnFit :: [([Float], Integer)] -> [Float] -> Int -> Integer
+knnFit combined new k = mostCommon (listFromSecTuple (take k (sortBy (comparing fst) (fmap (\(a, b) -> (euclideanDistance new a, b)) combined))))
