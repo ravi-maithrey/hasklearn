@@ -4,7 +4,7 @@ This repo contains code for a machine learning library written in Haskell. The m
 
 ## Contents
 
-As of December 2022, this library has methods for Linear and Logistic Regression, KNN and Naive Bayes. The idea was to be as close of an approximation of sklearn in python as possible. 
+As of December 2022, this library has methods for Linear and Logistic Regression, KNN and Naive Bayes. The idea is for this library to be as close of an approximation of sklearn in python as possible. 
 
 ## Implementation Details
 
@@ -24,7 +24,7 @@ Distance metric used is Euclidean Distance. In a future version, might upgrate t
 
 ### Naive Bayes
 
-The `Data` datatype keeps track of corresponding input and output datapoints to calculate the requisite probabilities. Each probability is 
+The `Data` datatype keeps track of corresponding input and output datapoints to calculate the requisite probabilities. Each probability is calculated as a discrete value. While the general idea is to use a distribution (Gaussian, for example), for our present purposes, this serves the same purpose in theory.
 
 # Installation
 
@@ -45,8 +45,25 @@ The project was built with `base >= 4.14.3.0`, but you can use any version as lo
 
 # Usage
 
+## Linear Regression
 ```haskell
-Placeholder
-```
+import Model
 
+-- initialize the model
+linReg = linearReg xsTrs ysTrs
+-- training with xsTrs and ysTrs as training set and 1000 iterations
+-- this returns a trained model instance
+linReg' = converge linReg xsTrs ysTrs 1000
+-- predicting with xsTe as test set
+ysTe = predict xsTe linReg'
+```
+## KNN
+```haskell
+-- initialize the model
+knn' = knn xsTrs ysTrs
+```
 # Issues and Limitations
+
+
+1. The original conception of the library was one which would have a monad for the `Model` datatype. This would allow for iterative computation/training. My knowledge of Haskell was not high enough for me to do this.
+1. The Naive Bayes method described in this library does not treat the data points as having parameters but instead works off of the assumption that each input point is a unique value itself. This leads to wonky values of the calculated probabilites
