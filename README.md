@@ -61,6 +61,8 @@ ysTe = predict xsTe linReg'
 ```haskell
 -- initialize the model
 knn' = knn xsTrs ysTrs
+-- predict on new instances
+ys = knnFit knn' xsTest 5 -- the last parameter is for k
 ```
 # Issues and Limitations
 
